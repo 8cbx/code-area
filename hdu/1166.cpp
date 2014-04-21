@@ -4,7 +4,7 @@
 #define rson m+1,r,rt<<1|1
 const int maxn=55555;
 int sum[maxn<<2];
-int Pushup(int rt)
+void Pushup(int rt)
 {
     sum[rt]=sum[rt<<1]+sum[rt<<1|1];
 }
