@@ -7,6 +7,7 @@ int main()
     int coun;
     while(scanf("%d",&n)!=EOF)
     {
+        scanf("%c",&s);
         while(n--)
         {
             scanf("%c",&s);
