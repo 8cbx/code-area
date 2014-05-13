@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    int n,a,coun;
+    while(scanf("%d",&n)!=EOF)
+    {
+        coun=0;
+        if(n==0)
+        {
+            break;
+        }
+        while(n--)
+        {
+            scanf("%d",&a);
+            while(a>=100)
+            {
+                coun+=a/100;
+                a-=100*(a/100);
+            }
+            while(a>=50)
+            {
+                coun+=a/50;
+                a-=50*(a/50);
+            }
+            while(a>=10)
+            {
+                coun+=a/10;
+                a-=10*(a/10);
+            }
+            while(a>=5)
+            {
+                coun+=a/5;
+                a-=5*(a/5);
+            }
+            while(a>=2)
+            {
+                coun+=a/2;
+                a-=2*(a/2);
+            }
+            coun+=a;
+        }
+        printf("%d\n",coun);
+    }
+    return 0;
+}
