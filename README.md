@@ -6,6 +6,7 @@
 >poj  
 >zoj  
 >uva  
+>ural  
 >other  
 >>Beauty of Programming 2014  
 
