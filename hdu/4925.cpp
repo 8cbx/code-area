@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    int a[105][105],b[105][105];
+    int n,m,sum;
+    int i,j,k,t;
+    int aa[5]={1,2,4,8,16};
+    while(scanf("%d",&t)!=EOF)
+    {
+        while(t--)
+        {
+            sum=0;
+            scanf("%d%d",&n,&m);
+            if(n==1&&m==1)
+            {
+                printf("1\n");
+                continue;
+            }
+            memset(a,0,sizeof(a));
+            memset(b,0,sizeof(b));
+            for(i=1;i<=n;i++)
+            {
+                for(j=1;j<=m;j++)
+                {
+                    if((i+j)%2==0)
+                    {
+                        a[i][j]=1;
+                        b[i][j]=1;
+                    }
+                }
+            }
+            for(i=1;i<=n;i++)
+            {
+                for(j=1;j<=m;j++)
+                {
+                    if(b[i][j]!=1)
+                    {
+                        if(i-1>=1)
+                        {
+                            a[i][j]+=a[i-1][j];
+                        }
+                        if(j-1>=1)
+                        {
+                            a[i][j]+=a[i][j-1];
+                        }
+                        if(i+1<=n)
+                        {
+                            a[i][j]+=a[i+1][j];
+                        }
+                        if(j+1<=m)
+                        {
+                            a[i][j]+=a[i][j+1];
+                        }
+                    }
+                }
+            }
+            for(i=1;i<=n;i++)
+            {
+                for(j=1;j<=m;j++)
+                {
+                    if(b[i][j]!=1)
+                    {
+                        sum+=aa[a[i][j]];
+                    }
+                }
+            }
+            printf("%d\n",sum);
+        }
+    }
+    return 0;
+}
