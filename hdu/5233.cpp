@@ -1,86 +1,94 @@
 #include<stdio.h>
 #include<string.h>
-#include<map>
+#include<vector>
+#include<algorithm>
 using namespace std;
-struct ip
+struct data
 {
-    int a,b,c,d;
-    bool operator <(const ip& other) const
+    long long hi;
+    int id;
+    int flag;
+    bool operator <(const data& other) const
     {
-        if (a < other.a)
+        if (hi < other.hi)
         {
             return true;
         }
-        else if (a == other.a)
+        else if (hi == other.hi)
         {
-            if (b < other.b)
+            if (id < other.id)
             {
                 return true;
-            }
-            else if(b==other.b)
-            {
-                if (c < other.c)
-                {
-                    return true;
-                }
-                else if(c==other.c)
-                {
-                    if (d < other.d)
-                    {
-                        return true;
-                    }
-                    else return false;
-                }
-                else return false;
             }
             else return false;
         }
         return false;
     }
-};
-map<ip,int> mapp;
-int cmp(ip a,ip b)
-{
-    if(a.a==b.a&&a.b==b.b&&a.c==b.c&&a.d==b.d)
-    {
-        return 1;
-    }
-    else return 0;
-}
+}h[100010];
 int main()
 {
-    ip s[1010],ss[1010];
-    ip sss;
-    int t;
-    int cases;
+    long long q[100010];
     int n,m;
-    while(scanf("%d",&t)!=EOF)
-    {
-        cases=0;
-        while(t--)
-        {
-            cases++;
-            printf("Case #%d:\n",cases);
-            scanf("%d%d",&n,&m);
-            for(int i=1; i<=n; i++)
+	while(scanf("%d%d",&n,&m)!=EOF)
+	{
+        memset(h,0,sizeof(h));
+        memset(q,0,sizeof(q));
+		for(int i=1;i<=n;i++)
+		{
+            scanf("%I64d",&h[i].hi);
+            h[i].id=i;
+            h[i].flag=0;
+		}
+		sort(h+1,h+1+n);
+		for(int i=1;i<=m;i++)
+		{
+            scanf("%I64d",&q[i]);
+            int l=1,r=n,mid;
+            while(l<=r)
             {
-                scanf("%d.%d.%d.%d",&s[i].a,&s[i].b,&s[i].c,&s[i].d);
-            }
-            for(int i=1; i<=m; i++)
-            {
-                scanf("%d.%d.%d.%d",&sss.a,&sss.b,&sss.c,&sss.d);
-                mapp.clear();
-                for(int j=1; j<=n; j++)
+                mid=(r-l)/2+l;
+                if(h[mid].hi>q[i])
                 {
-                    ss[j].a=s[j].a&sss.a;
-                    ss[j].b=s[j].b&sss.b;
-                    ss[j].c=s[j].c&sss.c;
-                    ss[j].d=s[j].d&sss.d;
-                    mapp[ss[j]]=1;
+                    r=mid-1;
                 }
-                printf("%d\n",(int)mapp.size());
+                else if(h[mid].hi<q[i])
+                {
+                    l=mid+1;
+                }
+                else
+                {
+                    if(h[mid].flag==1)
+                    {
+                        l=mid+1;
+                    }
+                    else
+                    {
+                        r=mid-1;
+                    }
+                }
             }
-        }
-    }
-    return 0;
+            r++;
+            if(h[r].hi!=q[i])
+            {
+                printf("-1\n");
+            }
+            else
+            {
+                while(h[r].hi==q[i]&&h[r].flag==1)
+                {
+                    r++;
+                }
+                if(h[r].hi!=q[i])
+                {
+                    printf("-1\n");
+                }
+                else
+                {
+                    printf("%d\n",h[r].id);
+                    h[r].flag=1;
+                }
+            }
+		}
+	}
+	return 0;
 }
