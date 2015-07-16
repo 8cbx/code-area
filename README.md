@@ -7,6 +7,7 @@
 > zoj  
 > uva  
 > ural  
+> 51nod
 > other  
 >> Beauty of Programming 2014  
 
